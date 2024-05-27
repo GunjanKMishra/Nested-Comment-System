@@ -1,6 +1,6 @@
 "use client";
-import { on } from "events";
 import { useState } from "react";
+// import axios from "axios";
 
 interface Comment {
   id: number;
@@ -28,31 +28,19 @@ const dummyComments: Comment[] = [
 
 export default function Home() {
   const [comments, setComments] = useState(dummyComments);
-
-  // const handleMainInput = () => {
-  //   if (newMainComment != "") {
-  //     // setComments([
-  //     //   ...comments,
-  //     //   {
-  //     //     id: comments.length + 1,
-  //     //     body: newMainComment,
-  //     //   },
-  //     // ]);
-  //     // or
-  //     setComments((prevComments) => [
-  //       {
-  //         id: prevComments.length + 1,
-  //         body: newMainComment,
-  //         comment: [],
-  //       },
-  //       ...prevComments,
-  //     ]);
-  //     setNewMainComment("");
-  //   }
-  // };
-
-  const onComment = (newComment: Comment) => {
+  const onComment = async (newComment: Comment) => {
     setComments([newComment, ...comments]);
+
+    // //Api calling (axios, mongodb) to save the comment and try catch block
+    // try {
+    //   const response = await axios.post("http://localhost:3000/comments", {
+    //     newComment,
+    //   });
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.log(error);
+    //   setComments(comments);
+    // }
   };
 
   return (
@@ -116,9 +104,20 @@ const CommentItem = ({ comment }: CommentItemProps) => {
   const [isReplying, setIsReplying] = useState(false);
   const [comments, setComments] = useState(comment.comments);
 
-  const onComment = (newComment: Comment) => {
+  const onComment = async (newComment: Comment) => {
     setComments((prev) => [newComment, ...prev]);
     setIsReplying(false);
+
+    // //Api calling (axios, mongodb) to save the comment and try catch block
+    // try {
+    //   const response = await axios.post("http://localhost:3000/comments", {
+    //     newComment,
+    //   });
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.log(error);
+    //   setComments(comments);
+    // }
   };
 
   const handleReply = () => {
